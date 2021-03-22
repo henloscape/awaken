@@ -2,25 +2,13 @@
 cd /tmp/rom # Depends on where source got synced
 rm -rf .repo & # lets remove unnecessary things, so that no storage issue can occur
 
-# Normal build steps
-. build/envsetup.sh
-lunch awaken_lava-userdebug
-export SELINUX_IGNORE_NEVERALLOWS=true
-export CCACHE_DIR=/tmp/ccache
-export CCACHE_EXEC=$(which ccache)
-export USE_CCACHE=1
-ccache -M 20G
-ccache -o compression=true
-ccache -z
-
-# romzip=$(echo out/target/product/lava/potato_lava*.zip)
 
 function push() {
     curl -F document=@$romzip "https://api.telegram.org/bot$token/sendDocument" \
         -F chat_id="-1001417732296" \
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html" \
-        -F caption="POSP Build finished on $(date) | For <b>Redmi 9 / Poco M2 (lava)</b> | @mango_ci "
+        -F caption="AwakenOS Build finished on $(date) | For <b>Redmi 9 / Poco M2 (lava)</b> | @mango_ci "
 }
 
 function start() {
@@ -28,8 +16,24 @@ function start() {
         -d chat_id="-1001417732296" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
-        -d text="<b>• POSP Community •</b>%0ABuild started on <code>Jamie's buildbot</code>%0A <b>lava</b> <i>$DEVICE</i>%0A <b>Build Status:</b> #BETA"
+        -d text="<b>• AwakenOS Beta •</b>%0ABuild started on <code>Jamie's buildbot</code>%0A <b>lava</b> <i>$DEVICE</i>%0A <b>Build Status:</b> #BETA"
 }
+
+# Normal build steps
+. build/envsetup.sh
+start
+lunch awaken_lava-userdebug
+export SELINUX_IGNORE_NEVERALLOWS=true
+export CCACHE_DIR=/tmp/ccache
+export USE_GAPPS=true
+export CCACHE_EXEC=$(which ccache)
+export USE_CCACHE=1
+export 
+ccache -M 20G
+ccache -o compression=true
+ccache -z
+
+romzip=$(echo out/target/product/lava/awaken_lava*.zip)
 
 up(){
 	curl --upload-file $1 https://transfer.sh/
@@ -46,6 +50,7 @@ make_rom(){
 	zip=$(up out/target/product/lava/awaken_lava*zip | grep -i transfer.sh)
 	echo " "
 	echo "$zip"
+	push
 }
 
 make_metalava
