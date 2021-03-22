@@ -1,7 +1,7 @@
 env: # Environt variable to pass to all tasks
     CIRRUS_CLONE_DEPTH: 1 # No need to clone with whole history
     CIRRUS_WORKING_DIR: "/tmp/ci" # Where to clone repo
-    token: "ENCRYPTED[2a784dd83c9427bf3a371498312e9df9f016aee7db38653777dd111c29b01b9a8139abaf7f8e9d7c86332002a679a034]"
+    token: "ENCRYPTED[fff4c379af7eb4a0a06a19e87c6ddf0a3a8723f545eab483408177566b1295bb0f4fafc58bc9eef298c8afba7597bf0a]"
 
 task:
     name: AwakenOS build
