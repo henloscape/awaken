@@ -4,7 +4,7 @@ rm -rf .repo & # lets remove unnecessary things, so that no storage issue can oc
 
 # Normal build steps
 . build/envsetup.sh
-lunch pixys_lava-userdebug
+lunch awaken_lava-userdebug
 export SELINUX_IGNORE_NEVERALLOWS=true
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
@@ -42,8 +42,8 @@ make_metalava(){
 }
 
 make_rom(){
-	make pixys -j16
-	zip=$(up out/target/product/lava/PixysOS*zip | grep -i transfer.sh)
+	m bacon -j16
+	zip=$(up out/target/product/lava/awaken_lava*zip | grep -i transfer.sh)
 	echo " "
 	echo "$zip"
 }
