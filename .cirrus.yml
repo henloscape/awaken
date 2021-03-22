@@ -4,7 +4,7 @@ env: # Environt variable to pass to all tasks
     token: "ENCRYPTED[2a784dd83c9427bf3a371498312e9df9f016aee7db38653777dd111c29b01b9a8139abaf7f8e9d7c86332002a679a034]"
 
 task:
-    name: POSP
+    name: PixysOS build
     timeout_in: 120m
     container:
       image: apon77/aosp:latest

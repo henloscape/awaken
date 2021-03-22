@@ -4,7 +4,7 @@ rm -rf .repo & # lets remove unnecessary things, so that no storage issue can oc
 
 # Normal build steps
 . build/envsetup.sh
-lunch potato_lava-userdebug
+lunch pixys_lava-userdebug
 export SELINUX_IGNORE_NEVERALLOWS=true
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
@@ -13,7 +13,7 @@ ccache -M 20G
 ccache -o compression=true
 ccache -z
 
-romzip=$(echo out/target/product/lava/potato_lava*.zip)
+# romzip=$(echo out/target/product/lava/potato_lava*.zip)
 
 function push() {
     curl -F document=@$romzip "https://api.telegram.org/bot$token/sendDocument" \
@@ -42,8 +42,8 @@ make_metalava(){
 }
 
 make_rom(){
-	mka potato -j16
-	zip=$(up out/target/product/lava/Arrow-v11.0*zip | grep -i transfer.sh)
+	make pixys -j16
+	zip=$(up out/target/product/lava/PixysOS*zip | grep -i transfer.sh)
 	echo " "
 	echo "$zip"
 }
